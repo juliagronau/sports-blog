@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PostContent from './PostContent';
+import BlogPost from './BlogPost';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {useState} from 'react';
 
@@ -31,13 +31,13 @@ const PostPreview = ({post}) => {
                                 An article by {authorReference.fields.authorName}<br></br>
                                 Published on {datePublished}
                             </Card.Text>
-                            <Button onClick={onClick} variant="primary">Read full article</Button>
+                            <Button href={`/${postTitle}`} variant="primary">Read full article</Button>
                         </Card.Body>
                 </Card>
             </Col>
             </Route>
             <Route path='/:postTitle'>
-                {read === true && <PostContent content={post}/>}
+                {read === true && <BlogPost content={post}/>}
             </Route>
         </Switch>
         
