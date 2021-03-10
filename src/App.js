@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { client } from './client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-<<<<<<< HEAD
 // unique id
 import { uuid } from 'uuidv4';
 // import my fontawesome library
@@ -12,16 +11,6 @@ import HeaderImg from './Components/HeaderImg';
 import Blogger from './Components/Blogger';
 import BlogPosts from './Components/BlogPosts';
 import Footer from './Components/Footer';
-=======
-import Header from './Components/Header';
-import Authors from './Components/Authors';
-import Footer from './Components/Footer';
-// import my fontawesome library
-import './fontawesome';
-import Navbar from './Components/Navbar';
-import BlogPosts from './Components/BlogPosts';
-
->>>>>>> main
 
 const App = () => {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -37,7 +26,6 @@ const App = () => {
             .catch(console.error)
     }, []);
 
-<<<<<<< HEAD
     useEffect(() => {
         client.getEntries({ content_type: 'author' })
             .then((response) => {
@@ -68,21 +56,6 @@ const App = () => {
         </main>
         <Footer />
     </>
-=======
-
-    return (
-
-        <div>
-            <Navbar />
-            <Header />
-            <Authors />
-            <BlogPosts posts={blogPosts} />
-            <Footer />
-        </div>
-                        
-                 
-
->>>>>>> main
     );
 }
 
