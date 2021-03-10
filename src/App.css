@@ -6,6 +6,21 @@
   box-sizing: border-box;
 }
 
+.headerpic {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bgimg {
+  filter: blur(2px);
+}
 /* Sport Icons */
 .sport-icon-right:hover {
   transform: translate(12px);
@@ -66,4 +81,8 @@
   margin: 30px;
   padding: 10px 20px;
   opacity: 0.8;
+}
+
+h1 {
+  outline-color: gray;
 }

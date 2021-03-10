@@ -1,15 +1,16 @@
-import React from 'react'
-import BlogPost from './BlogPost'
+import React from 'react';
+import PostPreview from './PostPreview';
+import Row from 'react-bootstrap/Row';
 
 const BlogPosts = ({ posts }) => {
 
 
     return (
-        <div>
+        <Row>
             {posts ? posts.map((post) => 
-            <BlogPost key={post.sys.id} post={post}/>
+            <PostPreview key={post.sys.id} post={post}/>
             ) : <h2>Loading</h2>}
-        </div>
+        </Row>
     )
 }
 

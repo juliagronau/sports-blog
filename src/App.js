@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { client } from './client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Header from './Components/Header';
+import Authors from './Components/Authors';
+import Footer from './Components/Footer';
 // import my fontawesome library
 import './fontawesome';
-import Navbar from './components/Navbar';
-import HeaderImg from './components/HeaderImg';
-import BlogPosts from './components/BlogPosts';
+import Navbar from './Components/Navbar';
+import BlogPosts from './Components/BlogPosts';
+
 
 function App() {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -15,31 +18,25 @@ function App() {
         client.getEntries({ content_type: 'blogPost' })
             .then((response) => {
                 console.log(response.items);
+                console.log(response)
                 setBlogPosts(response.items);
             })
             .catch(console.error)
     }, []);
-    console.log(process);
+
 
     return (
-    <>
-        <Navbar />
-        <HeaderImg />
-        <div className="App">
-            <div className='container'>
-                <header>
-                    <div className='wrapper'>
-                        <span className='logo'>React and Contentful</span>
-                    </div>
-                </header>
-                <main>
-                    <div className='wrapper'>
-                        <BlogPosts posts={blogPosts} />
-                    </div>
-                </main>
-            </div>
+
+        <div>
+            <Navbar />
+            <Header />
+            <Authors />
+            <BlogPosts posts={blogPosts} />
+            <Footer />
         </div>
-    </>
+                        
+                 
+
     );
 }
 
