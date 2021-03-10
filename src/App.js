@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { client } from './client';
-import BlogPosts from './Components/BlogPosts';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+// import my fontawesome library
+import './fontawesome';
+import Navbar from './components/Navbar';
+import HeaderImg from './components/HeaderImg';
+import BlogPosts from './components/BlogPosts';
 
 function App() {
     const [blogPosts, setBlogPosts] = useState([]);
@@ -17,6 +22,9 @@ function App() {
     console.log(process);
 
     return (
+    <>
+        <Navbar />
+        <HeaderImg />
         <div className="App">
             <div className='container'>
                 <header>
@@ -31,6 +39,7 @@ function App() {
                 </main>
             </div>
         </div>
+    </>
     );
 }
 

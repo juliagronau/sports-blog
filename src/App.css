@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+* {
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Sport Icons */
+.sport-icon-right:hover {
+  transform: translate(12px);
+  transition: transform 2s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sport-icon-left:hover {
+  transform: translate(-12px);
+  transition: transform 2s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sport-icon-desc:hover {
+  transform: translate(25px, 15px);
+  transition: transform 2s;
+}
+
+.sport-icon-rotate:hover {
+  transform: rotate(360deg);
+  transition: transform 2s;
+}
+
+/* Searchbar */
+.searchbar {
+  border-right: 0;
+}
+
+.search-icon-container {
+  background-color: #fff;
+  color: #6c757d;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+.search-icon-container:hover {
+  color: #191919;
+}
+
+/* Header Image */
+
+.container-img {
+  background-image: url("assets/Running\ Nature\ fabio-comparelli-uq2E2V4LhCY-unsplash.jpg");
+  background-size: cover;
+  background-position-y: center;
+  width: 100%;
+  height: auto;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.blog-info {
+  min-width: 300px;
+  max-width: 35%;
+  height: auto;
+  color: #191919;
+  background-color: #fff;
+  margin: 30px;
+  padding: 10px 20px;
+  opacity: 0.8;
 }
