@@ -6,10 +6,28 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 body {
   background-color: #f8f9fa;
 }
 
+=======
+.headerpic {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bgimg {
+  filter: blur(2px);
+}
+>>>>>>> main
 /* Sport Icons */
 .sport-icon-right:hover {
   transform: translate(12px);
@@ -72,6 +90,7 @@ body {
   opacity: 0.8;
 }
 
+<<<<<<< HEAD
 /* Image Authors */
 .img-author {
   width: 150px;
@@ -101,3 +120,8 @@ body {
 .pointer {
   cursor: pointer;
 }
+=======
+h1 {
+  outline-color: gray;
+}
+>>>>>>> main
