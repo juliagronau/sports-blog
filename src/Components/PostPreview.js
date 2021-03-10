@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BlogPost from './BlogPost';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import {useState} from 'react';
 
 
@@ -14,11 +14,8 @@ const PostPreview = ({post}) => {
     const { authorReference, datePublished, postContent, postImage, postTitle } = post.fields;
     const [read, setRead] = useState(false);
 
-
-    function onClick() {
-        setRead(true);
-    }
-    
+    console.log('postTitle', postTitle)
+    console.log('postContent', postContent)
     return (
         <Switch>
             <Route exact path='/'>
@@ -31,13 +28,15 @@ const PostPreview = ({post}) => {
                                 An article by {authorReference.fields.authorName}<br></br>
                                 Published on {datePublished}
                             </Card.Text>
-                            <Button href={`/${postTitle}`} variant="primary">Read full article</Button>
+                            <Link to={`/${postTitle}`}>
+                            <Button variant="primary">Read full article</Button>
+                            </Link>
                         </Card.Body>
                 </Card>
             </Col>
             </Route>
             <Route path='/:postTitle'>
-                {read === true && <BlogPost content={post}/>}
+                <BlogPost post={post} />
             </Route>
         </Switch>
         

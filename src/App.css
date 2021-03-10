@@ -83,6 +83,26 @@
   opacity: 0.8;
 }
 
-h1 {
-  outline-color: gray;
+footer {
+  background-color: lightgrey;
+  font-size: .8rem;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.authorbox {
+  margin: .8rem;
+
+}
+
+.authorpics {
+  margin: 0.5rem;
+  width:  30px;
+  height: 30px;
+}
+
+.socialicon {
+  width: 50px;
+  height: 50px;
+  padding: 1rem;
 }
