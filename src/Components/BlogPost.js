@@ -16,13 +16,27 @@ const Blogpost = ({ post }) => {
                 <h6>Publisehed on: {datePublished.substr(0, 10)}</h6>
                 <h6>{authorReference.fields.authorName}</h6>
             </div>
+        </div>
+
+
+
+        // <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "antiquewhite", margin: "2em" }}>
+
+        //     <img style={{ margin: "1em", width: "50%" }} src={`https:${postImage.fields.file.url}`} alt="article" />
+
+        //     <h1>{postTitle}</h1>
+
+        //     <div style={{ width: "50%", color: "gray", display: "flex", justifyContent: "space-between" }}>
+        //         <h6>Publisehed on: {datePublished.substr(0, 10)}</h6>
+        //         <h6>{authorReference.fields.authorName}</h6>
+        //     </div>
 
             
-            {paragraphe.map((paragraph) => <p>{paragraph}</p>)} 
-            {/* {console.log("etwas" + etwas)} */}
+            // {paragraphe.map((paragraph) => <p>{paragraph}</p>)} 
+            // {/* {console.log("etwas" + etwas)} */}
 
 
-        </div>
+        // </div>
     )
 }
 // Blogpost.propTypes = {
