@@ -1,47 +1,43 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { client } from '../client';
 
-const Blogpost = ({ post }) => {
-    const paragraphe = [];
+const Blogpost = () => {
     
-    const { authorReference, datePublished, postContent, postImage, postTitle } = post.fields;
-    const a = postContent.content.map((index) => { index.content.map((innerIndex) => paragraphe.push(`${innerIndex.value}`)) })
-    return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "antiquewhite", margin: "2em" }}>
-
-            <img style={{ margin: "1em", width: "50%" }} src={`https:${postImage.fields.file.url}`} alt="article" />
-
-            <h1>{postTitle}</h1>
-
-            <div style={{ width: "50%", color: "gray", display: "flex", justifyContent: "space-between" }}>
-                <h6>Publisehed on: {datePublished.substr(0, 10)}</h6>
-                <h6>{authorReference.fields.authorName}</h6>
-            </div>
-        </div>
-
-
-
-        // <div style={{ display: "flex", flexDirection: "column", alignItems: "center", background: "antiquewhite", margin: "2em" }}>
-
-        //     <img style={{ margin: "1em", width: "50%" }} src={`https:${postImage.fields.file.url}`} alt="article" />
-
-        //     <h1>{postTitle}</h1>
-
-        //     <div style={{ width: "50%", color: "gray", display: "flex", justifyContent: "space-between" }}>
-        //         <h6>Publisehed on: {datePublished.substr(0, 10)}</h6>
-        //         <h6>{authorReference.fields.authorName}</h6>
-        //     </div>
-
-            
-            // {paragraphe.map((paragraph) => <p>{paragraph}</p>)} 
-            // {/* {console.log("etwas" + etwas)} */}
-
-
-        // </div>
-    )
-}
-// Blogpost.propTypes = {
-// It is created by shortcut. Ask to Jorge => For what it is used?
-// import Proptypes id also created when I used shortcut=^
-// }
+    const { id } = useParams();
+    const [indiPost, setIndiPost] = useState();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+    
+    useEffect(() => {
+      setLoading(true);
+      client
+        .getEntry(id)
+        .then(res => {
+          setIndiPost(res);
+          setLoading(false);
+        })
+        .catch(err => setError(err));
+    }, [id]);
+    console.log(indiPost);
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+    return indiPost ? (
+        <>
+        <h2 className="mt-5">{indiPost.fields.postTitle}</h2>
+        <img src={indiPost.fields.postImage.fields.file.url} className="img-article" alt="article header image" />
+        <h6 className="blockquote-footer">Published on: {indiPost.fields.datePublished.substr(0, 10)}</h6>
+        <h6 className="blockquote-footer">Author: {indiPost.fields.authorReference.fields.authorName}</h6>
+        {indiPost.fields.postContent.content.map(p => { 
+            return <p className="p-article">{p.content[0].value}</p>
+            }) 
+        }
+{/*ZURÜCK BUTTON AUF STARTSEITE EINFÜGEN         
+        <button><a></a></button> */}
+        </>
+    ) : (
+        <div>Missing content</div>
+    );
+      }
 
 export default Blogpost
