@@ -72,13 +72,13 @@ const App = () => {
 
     return (
 
-        <div>
+        <>
             <Navbar />
             <Header />
             <Authors />
             <BlogPosts posts={blogPosts} />
             <Footer />
-        </div>
+        </>
                         
                  
 

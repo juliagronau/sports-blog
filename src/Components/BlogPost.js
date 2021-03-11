@@ -1,7 +1,12 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { client } from '../client';
 
 const Blogpost = ({ post }) => {
+    
+
     const paragraphe = [];
+    console.log(post);
     
     const { authorReference, datePublished, postContent, postImage, postTitle } = post.fields;
     const a = postContent.content.map((index) => { index.content.map((innerIndex) => paragraphe.push(`${innerIndex.value}`)) })
