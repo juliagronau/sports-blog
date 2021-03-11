@@ -8,7 +8,11 @@ import {
     faSwimmer, 
     faFutbol, 
     faSkiing,
-    faSearch } from '@fortawesome/free-solid-svg-icons';
+    faSearch,
+    faMapPin,
+    faEnvelopeOpen,
+    faHeadset
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
     faHome,
@@ -19,5 +23,8 @@ library.add(
     faSwimmer, 
     faFutbol, 
     faSkiing,
-    faSearch
-);
+    faSearch,
+    faMapPin,
+    faEnvelopeOpen,
+    faHeadset
+    );
