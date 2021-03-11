@@ -1,11 +1,10 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BlogPost from './BlogPost';
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import {useState} from 'react';
 
 
@@ -28,14 +27,14 @@ const PostPreview = ({post}) => {
                                 An article by {authorReference.fields.authorName}<br></br>
                                 Published on {datePublished}
                             </Card.Text>
-                            <Link to={`/${postTitle}`}>
+                            <Link to={`/${post.sys.id}`}>
                             <Button variant="primary">Read full article</Button>
                             </Link>
                         </Card.Body>
                 </Card>
             </Col>
             </Route>
-            <Route path='/:postTitle'>
+            <Route path='/:id'>
                 <BlogPost post={post} />
             </Route>
         </Switch>

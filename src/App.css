@@ -146,3 +146,14 @@ h1 {
   outline-color: gray;
 }
 
+/* Article */
+.img-article {
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.p-article {
+  font-size: 1.2em;
+  font-weight: 300;
+}
