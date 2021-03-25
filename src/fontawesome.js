@@ -11,8 +11,18 @@ import {
     faSearch,
     faMapPin,
     faEnvelopeOpen,
-    faHeadset
+    faHeadset,
+    faAngleLeft,
+    faAngleRight
 } from '@fortawesome/free-solid-svg-icons';
+
+import {
+    faFacebook,
+    faInstagram,
+    faTwitter,
+    faGithub,
+    faReact
+} from '@fortawesome/free-brands-svg-icons';
 
 library.add(
     faHome,
@@ -26,5 +36,12 @@ library.add(
     faSearch,
     faMapPin,
     faEnvelopeOpen,
-    faHeadset
+    faHeadset,
+    faFacebook,
+    faInstagram,
+    faTwitter,
+    faGithub,
+    faReact,
+    faAngleLeft,
+    faAngleRight
     );
