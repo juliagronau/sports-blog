@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import BlogPostTeaser from "./BlogPostTeaser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ReactPaginate from "react-paginate";
@@ -19,15 +18,24 @@ const Search = ({ posts }) => {
 
   const onClick = () => {
     console.log("onclick works");
-    setSearchTerm(document.querySelector(".searchbar").value);
+    const value = document.querySelector(".searchbar").value;
+    setSearchTerm(value);
     getFilteredResults();
     console.log(searchTerm);
   };
-
+  
   const getFilteredResults = () => {
     console.log("function invoked");
     setSearchResult(posts.filter(post => post.posttitle.includes(searchTerm)));
   };
+  
+  const handleKeyPress = (event) => {
+    console.log(event.target.value)
+    if(event.key === "Enter") {
+      event.preventDefault();
+      onClick();
+    }
+  }
 
   // Pagination
   const [pageNum, setPageNum] = useState(0);
@@ -56,6 +64,8 @@ const Search = ({ posts }) => {
           type="search"
           placeholder="Search your topic"
           aria-label="Search"
+          value={searchTerm}
+          onKeyPress={handleKeyPress}
         />
         <span className="input-group-text search-icon-container">
           <FontAwesomeIcon
@@ -68,18 +78,8 @@ const Search = ({ posts }) => {
       <div className="row">
         {displayCards}
         <ReactPaginate
-          previousLabel={
-            <FontAwesomeIcon
-              className="previousBtn"
-              icon={["fas", "angle-left"]}
-            />
-          }
-          nextLabel={
-            <FontAwesomeIcon
-              className="nextBtn"
-              icon={["fas", "angle-right"]}
-            />
-          }
+          previousLabel={<FontAwesomeIcon className="previousBtn" icon={["fas", "angle-left"]}/>}
+          nextLabel={<FontAwesomeIcon className="nextBtn" icon={["fas", "angle-right"]}/>}
           pageCount={pageCount}
           onPageChange={changePage}
           containerClassName={"paginationBtns"}
@@ -90,9 +90,7 @@ const Search = ({ posts }) => {
         />
       </div>
     </>
-  ) : (
-    <Spinner />
-  );
+  ) : <Spinner />;
 };
 
 export default Search;
