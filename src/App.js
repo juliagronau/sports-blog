@@ -9,11 +9,12 @@ import HeaderImg from "./Components/HeaderImg";
 import Blogger from "./Components/Blogger";
 import BlogPostsAll from "./Components/BlogPostsAll";
 import BlogPostFull from "./Components/BlogPostFull";
+import Search from "./Components/Search";
 import Footer from "./Components/Footer";
 import axios from "axios";
 
 const App = () => {
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState();
   const [blogger, setBlogger] = useState([]);
 
   useEffect(() => {
@@ -50,7 +51,8 @@ const App = () => {
             </div>
             <h2 className="mt-5">The latest articles</h2>
             <div className="row">
-              <BlogPostsAll posts={allPosts} />
+              {allPosts && <Search posts={allPosts} />}
+              {/* <BlogPostsAll posts={allPosts} /> */}
             </div>
           </Route>
           <Route path="/:blogID">
