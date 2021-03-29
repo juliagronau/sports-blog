@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-// unique id
-import { uuid } from "uuidv4";
 // import my fontawesome library
 import "./fontawesome";
 import Navbar from "./Components/Navbar";

@@ -2,8 +2,29 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 // import fontawesome for React
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchResults from "./SearchResults";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Navbar = () => {
+  const [searchTerm, setSearchTerm] = useState();
+  const [posts, setAllPosts] = useState([]);
+  const [hasData, setHasData] = useState(false);
+
+  useEffect(() => {
+    setHasData(true);
+    axios
+      .get("https://blog-project-api-jms.herokuapp.com/posts")
+      .then(response => {
+        setAllPosts(response.data);
+      })
+      .catch(console.error);
+  }, [searchTerm]);
+
+  function onClick() {
+    setSearchTerm(document.querySelector(".searchbar").value);
+  }
+
   return (
     <>
       <div className="container navbar-bg">
@@ -58,13 +79,18 @@ const Navbar = () => {
                   aria-label="Search"
                 />
                 <span className="input-group-text search-icon-container">
-                  <FontAwesomeIcon icon={["fa", "search"]} type="submit" />
+                  <FontAwesomeIcon
+                    icon={["fa", "search"]}
+                    type="submit"
+                    onClick={onClick}
+                  />
                 </span>
               </form>
             </div>
           </div>
         </nav>
       </div>
+      {searchTerm && <SearchResults searchTerm={searchTerm} posts={posts} />}
     </>
   );
 };

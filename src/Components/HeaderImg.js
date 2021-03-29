@@ -1,6 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const HeaderImg = () => {
+
     return (
             <div className="container-img">
                 <div className="blog-info">
@@ -11,5 +12,6 @@ const HeaderImg = () => {
             </div>
     )
 }
+
 
 export default HeaderImg;
