@@ -4,14 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 // import my fontawesome library
 import "./fontawesome";
+import axios from "axios";
 import Navbar from "./Components/Navbar";
 import HeaderImg from "./Components/HeaderImg";
 import Blogger from "./Components/Blogger";
-import BlogPostsAll from "./Components/BlogPostsAll";
 import BlogPostFull from "./Components/BlogPostFull";
 import Search from "./Components/Search";
 import Footer from "./Components/Footer";
-import axios from "axios";
+import Spinner from "./Components/Spinner";
 
 const App = () => {
   const [allPosts, setAllPosts] = useState();
@@ -35,7 +35,7 @@ const App = () => {
       .catch(console.error);
   }, []);
 
-  return (
+  return allPosts ? (
     <>
       <Navbar />
       <HeaderImg />
@@ -51,8 +51,7 @@ const App = () => {
             </div>
             <h2 className="mt-5">The latest articles</h2>
             <div className="row">
-              {allPosts && <Search posts={allPosts} />}
-              {/* <BlogPostsAll posts={allPosts} /> */}
+              <Search posts={allPosts} />
             </div>
           </Route>
           <Route path="/:blogID">
@@ -62,7 +61,7 @@ const App = () => {
       </main>
       <Footer />
     </>
-  );
+  ) : <Spinner />;
 };
 
 export default App;

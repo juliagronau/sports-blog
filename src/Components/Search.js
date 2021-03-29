@@ -20,10 +20,9 @@ const Search = ({ posts }) => {
     console.log("onclick works", document.querySelector(".searchbar").value);
     let term = document.querySelector(".searchbar").value;
     setSearchTerm(term);
-
-    console.log("Kaan", searchTerm);
+    console.log("Ssss", searchTerm);
   };
-
+  
   const getFilteredResults = () => {
     console.log("function invoked");
     setSearchResult(
@@ -32,6 +31,14 @@ const Search = ({ posts }) => {
       )
     );
   };
+  
+  const handleKeyPress = (event) => {
+    console.log(event.target.value)
+    if(event.key === "Enter") {
+      event.preventDefault();
+      onClick();
+    }
+  }
 
   // Pagination
   const [pageNum, setPageNum] = useState(0);
@@ -97,9 +104,7 @@ const Search = ({ posts }) => {
         )}
       </div>
     </>
-  ) : (
-    <Spinner />
-  );
+  ) : <Spinner />;
 };
 
 export default Search;
