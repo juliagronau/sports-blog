@@ -7,7 +7,7 @@ import Spinner from "./Spinner";
 const Search = ({ posts }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  const [displayCards, setDisplayCards] = useState("");
+  // const [displayCards, setDisplayCards] = useState("");
 
   console.log("Posts", posts);
 
@@ -44,16 +44,13 @@ const Search = ({ posts }) => {
   const [pageNum, setPageNum] = useState(0);
   const cardsPerPage = 3;
   const pagesVisited = pageNum * cardsPerPage;
-
-  useEffect(() => {
-    // slice() Methode returns part of Arr
-    const newArr = searchResult
-      .slice(pagesVisited, pagesVisited + cardsPerPage)
-      .map((post) => <BlogPostTeaser key={posts.post_id} post={post} />);
-    setDisplayCards(() => newArr);
-  }, [searchResult]);
+  // slice() Methode returns part of Arr
+  const displayCards = searchResult
+    .slice(pagesVisited, pagesVisited + cardsPerPage)
+    .map((post) => <BlogPostTeaser key={posts.post_id} post={post} />);
   // Math.ceil() gives next higher integer that is equal or greater than the given num
-  const pageCount = Math.ceil(posts.length / cardsPerPage);
+  // Gives num of pages to flip through
+  const pageCount = Math.ceil(searchResult.length / cardsPerPage);
   // ReactPaginate provides argument that I can destructure to {selected}
   const changePage = ({ selected }) => {
     setPageNum(selected);
@@ -61,7 +58,7 @@ const Search = ({ posts }) => {
 
   return searchResult && posts ? (
     <>
-      <form className="d-flex ml-auto">
+      <form className="input-group input-group-sm">
         <input
           className="form-control searchbar"
           type="search"

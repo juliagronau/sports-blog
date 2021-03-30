@@ -39,17 +39,17 @@ const App = () => {
     <>
       <Navbar />
       <HeaderImg />
-      <main className="container mt-5">
+      <main className="container">
         <Switch>
           <Route exact path="/">
-            <h2>Here we are - the blogger</h2>
+            <h2 className="mt-5">Here we are - the blogger</h2>
             <div className="row">
               {blogger &&
                 blogger.map(blogger => (
                   <Blogger key={blogger.id} blogger={blogger} />
                 ))}
             </div>
-            <h2 className="mt-5">The latest articles</h2>
+            <h2 className="row mt-5">The latest articles</h2>
             <div className="row">
               <Search posts={allPosts} />
             </div>
