@@ -16,11 +16,11 @@ const Search = ({ posts }) => {
     getFilteredResults();
   }, [searchTerm]);
 
-  const onClick = () => {
+  const onChange = () => {
     console.log("onclick works", document.querySelector(".searchbar").value);
     let term = document.querySelector(".searchbar").value;
     setSearchTerm(term);
-    console.log("Ssss", searchTerm);
+    console.log("Search Term:", searchTerm);
   };
   
   const getFilteredResults = () => {
@@ -36,7 +36,7 @@ const Search = ({ posts }) => {
     console.log(event.target.value)
     if(event.key === "Enter") {
       event.preventDefault();
-      onClick();
+      onChange();
     }
   }
 
@@ -67,13 +67,14 @@ const Search = ({ posts }) => {
           type="search"
           placeholder="Search your topic"
           aria-label="Search"
-          onKeyUp={onClick}
+          onKeyUp={handleKeyPress}
         />
         <span className="input-group-text search-icon-container">
           <FontAwesomeIcon
             icon={["fa", "search"]}
             type="submit"
-            keyup={onClick}
+            onChange={onChange}
+            onClick={onChange}
           />
         </span>
       </form>
