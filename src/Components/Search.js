@@ -9,8 +9,6 @@ const Search = ({ posts }) => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchClick, setSearchClick] = useState(false);
 
-  console.log("Posts", posts);
-
   useEffect(() => {
     setSearchResult(posts);
   }, [searchTerm]);
@@ -19,7 +17,6 @@ const Search = ({ posts }) => {
     event.preventDefault();
     !searchTerm ? alert('Type in something') : getFilteredResults();
     setSearchClick(() => true);
-
   };
   
   const onInputChange = (event) => {
@@ -27,7 +24,6 @@ const Search = ({ posts }) => {
   }
 
   const getFilteredResults = () => {
-    console.log("function invoked");
     setSearchResult(
       posts.filter((post) =>
         post.posttitle.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,7 +31,6 @@ const Search = ({ posts }) => {
     );
   };
   
-
   // Pagination
   const [pageNum, setPageNum] = useState(0);
   const cardsPerPage = 3;
@@ -69,7 +64,6 @@ const Search = ({ posts }) => {
           <FontAwesomeIcon
             icon={["fa", "search"]}
             type="submit"
-   
             onClick={onSubmit}
           />
         </span>

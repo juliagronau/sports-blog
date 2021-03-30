@@ -168,6 +168,27 @@ body {
   font-weight: 300;
 }
 
+/* Comment */
+.comment {
+  background-color: #464546;
+  font-size: 0.7em;
+  color: #fff;
+  padding: 5px 25px;
+  margin: 5px 0;
+}
+
+.commentTitle {
+  font-weight: bold;
+}
+
+.commentName {
+  width: 100%;
+  color: #c8ccd0;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #fff;
+}
+
 /* Pagination */
 .paginationBtns {
   width: 80%;
