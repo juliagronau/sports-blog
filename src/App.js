@@ -38,10 +38,10 @@ const App = () => {
   return allPosts ? (
     <>
       <Navbar />
-      <HeaderImg />
       <main className="container">
         <Switch>
           <Route exact path="/">
+          <HeaderImg />
             <h2 className="mt-5">Here we are - the blogger</h2>
             <div className="row">
               {blogger &&
