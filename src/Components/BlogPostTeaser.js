@@ -10,14 +10,12 @@ const Blogpost = ({
     postcontent_par1,
     postcontent_par2,
     postcontent_par3,
-    postcontent_par4,
     postimage,
     posttitle,
     postteaser,
   },
 }) => {
   const [blogID, setBlogID] = useState("");
-  const [paragraphe, setParagraphe] = useState([]);
 
   useEffect(() => {
     setBlogID(post_id);
