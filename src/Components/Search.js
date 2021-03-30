@@ -7,22 +7,25 @@ import Spinner from "./Spinner";
 const Search = ({ posts }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  // const [displayCards, setDisplayCards] = useState("");
+  const [searchClick, setSearchClick] = useState(false);
 
   console.log("Posts", posts);
 
   useEffect(() => {
     setSearchResult(posts);
-    getFilteredResults();
   }, [searchTerm]);
 
-  const onChange = () => {
-    console.log("onclick works", document.querySelector(".searchbar").value);
-    let term = document.querySelector(".searchbar").value;
-    setSearchTerm(term);
-    console.log("Search Term:", searchTerm);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    !searchTerm ? alert('Type in something') : getFilteredResults();
+    setSearchClick(() => true);
+
   };
   
+  const onInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  }
+
   const getFilteredResults = () => {
     console.log("function invoked");
     setSearchResult(
@@ -32,13 +35,6 @@ const Search = ({ posts }) => {
     );
   };
   
-  const handleKeyPress = (event) => {
-    console.log(event.target.value)
-    if(event.key === "Enter") {
-      event.preventDefault();
-      onChange();
-    }
-  }
 
   // Pagination
   const [pageNum, setPageNum] = useState(0);
@@ -57,21 +53,24 @@ const Search = ({ posts }) => {
   };
 
   return searchResult && posts ? (
-    <>
-      <form className="input-group input-group-sm">
+  <>
+  <h2 className="row mt-5">{!searchClick ? 'The latest articles' : 'Your search results'}</h2>
+    <div className="row">
+      <form className="input-group input-group-sm" onSubmit={onSubmit}>
         <input
           className="form-control searchbar"
           type="search"
           placeholder="Search your topic"
           aria-label="Search"
-          onKeyUp={handleKeyPress}
+          onChange={onInputChange}
+          value={searchTerm}
         />
         <span className="input-group-text search-icon-container">
           <FontAwesomeIcon
             icon={["fa", "search"]}
             type="submit"
-            onChange={onChange}
-            onClick={onChange}
+   
+            onClick={onSubmit}
           />
         </span>
       </form>
@@ -101,7 +100,8 @@ const Search = ({ posts }) => {
           />
         )}
       </div>
-    </>
+    </div>
+  </>
   ) : <Spinner />;
 };
 

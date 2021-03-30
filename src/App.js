@@ -49,10 +49,7 @@ const App = () => {
                   <Blogger key={blogger.id} blogger={blogger} />
                 ))}
             </div>
-            <h2 className="row mt-5">The latest articles</h2>
-            <div className="row">
-              <Search posts={allPosts} />
-            </div>
+            <Search posts={allPosts} />
           </Route>
           <Route path="/:blogID">
             <BlogPostFull />
