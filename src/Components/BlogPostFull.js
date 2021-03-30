@@ -26,7 +26,7 @@ const BlogPostFull = () => {
 
   return article ? (
     <>
-      <div className="container-blogImg">
+      <div className="container-blogImg mt-3">
         <img
           src={article.postimage}
           className="img-article"
