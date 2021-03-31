@@ -4,18 +4,14 @@ import { Link } from "react-router-dom";
 const Blogpost = ({
   post: {
     post_id,
-    author_id,
     authorname,
     datepublished,
-    postcontent_par1,
-    postcontent_par2,
-    postcontent_par3,
     postimage,
     posttitle,
     postteaser,
   },
 }) => {
-  const [blogID, setBlogID] = useState("");
+  const [blogID, setBlogID] = useState();
 
   useEffect(() => {
     setBlogID(post_id);

@@ -100,7 +100,8 @@ body {
 /* Blog Posts */
 .linkToBlogPost {
   background-color: #ccc;
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
   border-radius: 0;
   -webkit-transition: all 2s ease;
   -moz-transition: all 2s ease;
@@ -110,10 +111,22 @@ body {
 
 .linkToBlogPost:hover {
   background-color: #b6ac95;
-  width: 50%;
-  min-width: 100px;
   border-radius: 3px;
-  margin: 0 auto;
+}
+
+.linkToHome {
+  background-color: #ccc;
+  width: 190px;
+  border-radius: 0;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+.linkToHome:hover {
+  background-color: #464546;
+  border-radius: 3px;
 }
 
 .btn-blogTeaser,
@@ -123,7 +136,6 @@ body {
   text-decoration: none !important;
   color: #ffffff;
   padding: 10px;
-  min-width: 100px;
   border: 0;
   box-shadow: 0;
 }
@@ -179,13 +191,17 @@ body {
 
 .commentTitle {
   font-weight: bold;
+  padding-top: 5px;
 }
 
 .commentName {
-  width: 100%;
   color: #c8ccd0;
   padding-bottom: 3px;
-  margin-bottom: 3px;
+}
+
+.commentText {
+  width: 100%;
+  padding-bottom: 5px;
   border-bottom: 1px solid #fff;
 }
 
