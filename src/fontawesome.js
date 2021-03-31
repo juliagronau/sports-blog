@@ -13,7 +13,8 @@ import {
     faEnvelopeOpen,
     faHeadset,
     faAngleLeft,
-    faAngleRight
+    faAngleRight,
+    faArrowAltCircleLeft
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -43,5 +44,6 @@ library.add(
     faGithub,
     faReact,
     faAngleLeft,
-    faAngleRight
+    faAngleRight,
+    faArrowAltCircleLeft
     );

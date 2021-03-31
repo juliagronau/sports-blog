@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import Spinner from "./Spinner";
 
@@ -8,79 +9,72 @@ const BlogPostFull = () => {
   let { blogID } = useParams();
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(null);
-  const [body, setBody] = useState({});
+  const [formState, setFormState] = useState({
+    name: '',
+    title: '',
+    comment: ''
+  });
+  const { name, comment, title } = formState;
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}`)
-      .then(response => {
-        setArticle(response.data);
-        setLoading(false);
-      })
-      .catch(err => console.log(err));
+  useEffect( async() => {
+    try {
+      const res = await axios.get(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}`)
+      setArticle(res.data);
+    } catch(err) {
+      console.log(err); 
+    }
   }, [blogID]);
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`)
-      .then(res => {
-        setComments([...comments, res.data]);
-        setLoading(false);
-      })
-      .catch(err => console.log(err));
-      console.log(comments)
-  }, [blogID]);
+  useEffect( async() => {
+    try {
+      const res = await axios.get(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`)
+      setComments(res.data);
+    } catch(err) {
+      console.log(err);
+    }
+  }, [blogID, comments]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const postData = async(url='', data = {}) {
-      const res = await fetch(url, {
+    // The for...in statement iterates over all enumerable properties of an object that are keyed by strings
+    // A different property name (here commentName, commentTitle ...) is assigned to variable (here const field) on each iteration.
+    for (const field in formState) {
+      if(!formState[field]) return alert(`Please fill up the field: ${field}`)
+    }
+  
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    // https://codesandbox.io/s/naughty-blackburn-sdlwi?file=/src/App.js
+    try {
+      const options ={
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        body: JSON.stringify(formState),
         headers: {
           'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(data)
-      });
-      return res.json();
-    };
-    postData(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, { answer: 42 })
-
-
-
-
-    // const postData
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    setBody({
-      name: e.target[0].value,
-      title: e.target[1].value,
-      text: e.target[2].value
-    });
-    alert('Thank you for your comment. Please refresh the page to see it.')
+        }
+      }
+      const res = await fetch(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, options)
+      console.log(res.json())
+      const data = await res.json()
+      setComments([...comments, data])
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onInputChange = (e) => {
-    setBody({
-      commentName: e.target[0].value,
-      commentTitle: e.target[1].value,
-      commentText: e.target[2].value
-    });
-  }
-
-
   const onChange = (e) => {
-    console.log(e.target.value);
+    // e.target.name should have same name as in formState object
+    setFormState( {...formState, [e.target.name]: e.target.value })  
   }
 
   return article ? (
     <>
+      <div className="text-center linkToHome mt-3 mr-auto">
+        <Link to={"/"} className="btn-blogTeaser">
+          <FontAwesomeIcon className="mr-2" icon={["fa", "arrow-alt-circle-left"]}
+                />
+          Back to Homepage
+        </Link>
+      </div>
       <div className="container-blogImg mt-3">
         <img
           src={article.postimage}
@@ -96,38 +90,33 @@ const BlogPostFull = () => {
       <p className="p-article">{article.postcontent_par1}</p>
       <p className="p-article">{article.postcontent_par2}</p>
       <p className="p-article">{article.postcontent_par3}</p>
-      <p className="p-article">{article.postcontent_par4}</p>
-
-      <div className="text-center linkToBlogPost">
-        <Link to={"/"} className="btn-blogTeaser">
-          Back to Homepage
-        </Link>
-      </div>
-      <h5 className="mt-3">Latest Comments</h5>
-      {comments && comments.map(comment => {
-        return (
-        <div className="container comment">
-          <div className="row">
-            <div className="commentTitle">{comment.title}</div>
+      <div className="container mt-3 comment">
+        <h5>Latest Comments</h5>
+        {comments && comments.map(({id, title, name, comment}) => {
+          return (
+          <div key={id} className="container">
+            <div className="row">
+              <div className="commentTitle">{title}</div>
+            </div>
+            <div className="row">
+              <div className="commentName blockquote-footer">{name}</div>
+            </div>
+            <div className="row">
+              <div className="commentText">{comment}</div>
+            </div>
           </div>
-          <div className="row">
-            <div className="commentName blockquote-footer">{comment.name}</div>
-          </div>
-          <div className="row">
-            <div>{comment.comment}</div>
-          </div>
-        </div>
+          )}
         )}
-      )}
-      <form className="container comment mt-3" onSubmit={onSubmit}>
-        <div className="row mb-3">
-          <h5>Tell us what you think</h5>
-          <input type="text" value={body.commentTitle} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentTitle" placeholder="Title of your comment" />
-          <input type="text" value={body.commentName} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentName" placeholder="Type in your alias" />
-          <textarea type="text" value={body.commentText} onChange={onInputChange} className="form-control form-control-sm mb-1" rows="3" id="commentText" placeholder="What do you want to say?"></textarea>
-          <button type="submit" className="btn btn-outline-light btn-sm">Submit</button>
-        </div>
-      </form>
+        <form className="container mt-3" onSubmit={onSubmit}>
+          <div className="row mb-3">
+            <h5>Tell us what you think</h5>
+            <input type="text" name="title" value={title} onChange={onChange} className="form-control form-control-sm mb-1" placeholder="Title of your comment" />
+            <input type="text" name="name" value={name} onChange={onChange} className="form-control form-control-sm mb-1" placeholder="Type in your alias" />
+            <textarea type="text" name="comment" value={comment} onChange={onChange} className="form-control form-control-sm mb-1" rows="3" placeholder="What do you want to say?"></textarea>
+            <button type="submit" className="btn btn-outline-light btn-sm">Submit</button>
+          </div>
+        </form>
+      </div>
     </>
   ) : (
     <Spinner />
