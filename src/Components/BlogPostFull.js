@@ -52,8 +52,7 @@ const BlogPostFull = () => {
           'Content-Type': 'application/json'
         }
       }
-      const res = await fetch(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, options)
-      console.log(res.json())
+      const res = await fetch(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, options);
       const data = await res.json()
       setComments([...comments, data])
     } catch (err) {
