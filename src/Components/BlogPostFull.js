@@ -36,6 +36,26 @@ const BlogPostFull = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const postData = async(url='', data = {}) {
+      const res = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      });
+      return res.json();
+    };
+    postData(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, { answer: 42 })
+
+
+
+
     // const postData
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     setBody({
@@ -45,6 +65,15 @@ const BlogPostFull = () => {
     });
     alert('Thank you for your comment. Please refresh the page to see it.')
   };
+
+  const onInputChange = (e) => {
+    setBody({
+      commentName: e.target[0].value,
+      commentTitle: e.target[1].value,
+      commentText: e.target[2].value
+    });
+  }
+
 
   const onChange = (e) => {
     console.log(e.target.value);
@@ -93,9 +122,9 @@ const BlogPostFull = () => {
       <form className="container comment mt-3" onSubmit={onSubmit}>
         <div className="row mb-3">
           <h5>Tell us what you think</h5>
-          <input type="text" value={body.commentTitle} onChange={onChange} className="form-control form-control-sm mb-1" id="commentTitle" placeholder="Title of your comment" />
-          <input type="text" value={body.commentName} onChange={onChange} className="form-control form-control-sm mb-1" id="commentName" placeholder="Type in your alias" />
-          <textarea type="text" value={body.commentText} onChange={onChange} className="form-control form-control-sm mb-1" rows="3" id="commentText" placeholder="What do you want to say?"></textarea>
+          <input type="text" value={body.commentTitle} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentTitle" placeholder="Title of your comment" />
+          <input type="text" value={body.commentName} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentName" placeholder="Type in your alias" />
+          <textarea type="text" value={body.commentText} onChange={onInputChange} className="form-control form-control-sm mb-1" rows="3" id="commentText" placeholder="What do you want to say?"></textarea>
           <button type="submit" className="btn btn-outline-light btn-sm">Submit</button>
         </div>
       </form>
