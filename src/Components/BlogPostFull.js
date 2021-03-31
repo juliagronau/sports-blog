@@ -9,7 +9,12 @@ const BlogPostFull = () => {
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(null);
-  const [body, setBody] = useState({});
+  const [formState, setFormState] = useState({
+    commentName: '',
+    commentTitle: '',
+    commentText: ''
+  });
+  const { commentName, commentTitle, commentText } = formState;
 
   useEffect(() => {
     setLoading(true);
@@ -36,47 +41,33 @@ const BlogPostFull = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const postData = async(url='', data = {}) {
+    // The for...in statement iterates over all enumerable properties of an object that are keyed by strings
+    // A different property name (here commentName, commentTitle ...) is assigned to variable (here const field) on each iteration.
+    for (const field in formState) {
+      if(!formState[field]) return alert(`Please fill up your ${field}`)
+    }
+  
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    // https://codesandbox.io/s/naughty-blackburn-sdlwi?file=/src/App.js
+    newComment = async(url, data) => {
       const res = await fetch(url, {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
         body: JSON.stringify(data)
       });
       return res.json();
-    };
-    postData(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, { answer: 42 })
-
-
-
-
-    // const postData
-    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    setBody({
-      name: e.target[0].value,
-      title: e.target[1].value,
-      text: e.target[2].value
-    });
-    alert('Thank you for your comment. Please refresh the page to see it.')
+    }
+    
+    try {
+      newComment(`https://blog-project-api-jms.herokuapp.com/posts/${blogID}/comments`, formState);
+      alert('Thank you for your comment. Please refresh the page to see it.');
+    } catch(err) {
+      console.log(err);
+    }
   };
 
-  const onInputChange = (e) => {
-    setBody({
-      commentName: e.target[0].value,
-      commentTitle: e.target[1].value,
-      commentText: e.target[2].value
-    });
-  }
-
-
   const onChange = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.name);
+    setFormState( {...formState, [e.target.name]: e.target.value })
   }
 
   return article ? (
@@ -122,9 +113,9 @@ const BlogPostFull = () => {
       <form className="container comment mt-3" onSubmit={onSubmit}>
         <div className="row mb-3">
           <h5>Tell us what you think</h5>
-          <input type="text" value={body.commentTitle} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentTitle" placeholder="Title of your comment" />
-          <input type="text" value={body.commentName} onChange={onInputChange} className="form-control form-control-sm mb-1" id="commentName" placeholder="Type in your alias" />
-          <textarea type="text" value={body.commentText} onChange={onInputChange} className="form-control form-control-sm mb-1" rows="3" id="commentText" placeholder="What do you want to say?"></textarea>
+          <input type="text" name="title" value={commentTitle} onChange={onChange} className="form-control form-control-sm mb-1"placeholder="Title of your comment" />
+          <input type="text" name="email" value={commentName} onChange={onChange} className="form-control form-control-sm mb-1" placeholder="Type in your alias" />
+          <textarea type="text" name="text" value={commentText} onChange={onChange} className="form-control form-control-sm mb-1" rows="3" placeholder="What do you want to say?"></textarea>
           <button type="submit" className="btn btn-outline-light btn-sm">Submit</button>
         </div>
       </form>
